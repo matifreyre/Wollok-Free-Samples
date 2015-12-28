@@ -13,7 +13,6 @@ class Bicicleta inherits Vehiculo {
 	var rodado
 
 	new(_rodado) {
-		super() 
 		rodado = _rodado
 	}
 	override method velocidadMaxima() { return rodado * 1.2 }
@@ -25,7 +24,6 @@ class Moto inherits Vehiculo {
 	var cilindrada
 
 	new(_cilindrada) {
-		super() 
 		cilindrada = _cilindrada
 	}
 	override method velocidadMaxima() { return cilindrada / 5 }
@@ -38,7 +36,6 @@ class Auto inherits Vehiculo {
 	var cantidadDePasajeros
 
 	new(_velocidadMaxima, _cantidadDePasajeros) {
-		super() 
 		velocidadMaxima = _velocidadMaxima 
 		cantidadDePasajeros = _cantidadDePasajeros
 	}
@@ -60,8 +57,7 @@ object empresa {
 		return vehiculos.max([vehiculo | vehiculo.eficiencia()])
 	}
 	method cantidadDePasajerosQuePuedenTransportarseAMasDe(unaVelocidad){
-		return 
-			this.vehiculosConVelocidadMayorA(unaVelocidad).
-				map([vehiculo | vehiculo.cantidadDePasajeros()])
+		return this.vehiculosConVelocidadMayorA(unaVelocidad).
+			map([vehiculo | vehiculo.cantidadDePasajeros()])
 	}
 }

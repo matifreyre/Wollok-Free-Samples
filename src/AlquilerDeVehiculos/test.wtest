@@ -1,0 +1,13 @@
+import alquilerDeVehiculos.*
+
+test "Eficiencia de un auto" {
+	assert.equals(18, new Auto(360, 2).eficiencia())
+}
+
+test "Eficiencia de una moto" {
+	assert.equals(40, new Moto(1000).eficiencia())
+}
+
+test "Eficiencia de una bicicleta" {
+	assert.equals(24, new Bicicleta(20).eficiencia())
+}
