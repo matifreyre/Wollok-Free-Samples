@@ -1,0 +1,31 @@
+import ejercicio1.SmashBros.*
+import ejercicio1.SmashBros.*
+
+test "Poder de Captain Falcon" {
+	assert.equals(captainFalcon.potencialOfensivo(), 9999) 
+}
+
+test "Poder de Jigglypuff" {
+	assert.equals(250, jigglypuff.potencialOfensivo())
+	jigglypuff.atacarA(captainFalcon)
+	assert.equals(125, jigglypuff.potencialOfensivo())
+}
+
+test "Poder de Link con espada" {
+	link.setArma(espadaMaestra) 
+	assert.equals(200, link.potencialOfensivo())
+	link.atacarA(captainFalcon) 
+	assert.equals(200, link.potencialOfensivo())
+}
+
+test "Poder de Link con boomerang (duplica lo base)" {
+	link.setArma(boomerang) 
+	assert.equals(link.potencialOfensivo(), link.poderBase() * 2)
+}
+
+test "Poder de Link con arco y flecha (pierde 5 con cada ataque)" {
+	link.setArma(arcoYFlecha) 
+	this.equals(150, link.potencialOfensivo())
+	link.atacarA(captainFalcon) 
+	this.equals(145, link.potencialOfensivo())
+}
