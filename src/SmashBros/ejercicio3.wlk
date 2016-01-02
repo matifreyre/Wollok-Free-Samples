@@ -4,7 +4,7 @@ import ejercicio2.SmashBros.*
 package SmashBros {
 	class Espada {
 		var poder
-		new(unPoder){
+		constructor(unPoder){
 			poder = unPoder
 		}
 		method poderPara(_){ return poder }

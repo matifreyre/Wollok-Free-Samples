@@ -8,7 +8,7 @@ package SmashBros {
 		method atacarA(otro) {
 			otro.recibirAtaqueDe(this.potencialOfensivo())
 		}
-	} 
+	}  
 	object captainFalcon inherits Personaje {
 		override method potencialOfensivo() {
 			return 9999
@@ -53,7 +53,7 @@ package SmashBros {
 		method atacaste() { cantidadDeFlechas -= 1 }
 	}
 	object zelda inherits Personaje {
-		var armas = # { espadaMaestra , boomerang , arcoYFlecha } 
+		var armas = #{ espadaMaestra , boomerang , arcoYFlecha } 
 		var poderBase = 50
 
 		method poderBase() { return poderBase }
@@ -63,24 +63,25 @@ package SmashBros {
 		}
 		
 		method poderDeArmas(){
-			return armas.sum([ unArma | unArma.poderPara(this) ])
+			return armas.sum({ unArma => unArma.poderPara(this) })
 		}
 
 		override method atacarA(otro) {
 			super(otro) 
 			if (this.potencialOfensivo() < otro.potencialOfensivo()) 
 				this.perderArmaDeMasPoder() 
-			armas.forEach([	unArma | unArma.atacaste() ])
+			armas.forEach({	unArma => unArma.atacaste() })
 		}
 
 		method perderArmaDeMasPoder() {
-			var armaAPerder = armas.max([ unArma | unArma.poderPara(this)]) 
+			var armaAPerder = armas.max({ unArma => unArma.poderPara(this)}) 
 			armas.remove(armaAPerder)
 		}
 	}
 	class Espada {
 		var poder
-		new(unPoder) { poder = unPoder }
+		
+		constructor(unPoder) { poder = unPoder }
 		method poderPara(_) { return poder }
 	}
 }

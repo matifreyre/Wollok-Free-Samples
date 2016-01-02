@@ -60,7 +60,7 @@ package SmashBros {
 		method atacaste() { cantidadDeFlechas -= 1 }
 	}
 	object zelda inherits Personaje {
-		var armas = # { espadaMaestra , boomerang , arcoYFlecha } 
+		var armas = #{ espadaMaestra , boomerang , arcoYFlecha } 
 		var poderBase = 50
 
 		method poderBase() { return poderBase }
@@ -70,51 +70,54 @@ package SmashBros {
 		}
 		
 		method poderDeArmas(){
-			return armas.sum([ unArma | unArma.poderPara(this) ])
+			return armas.sum({ unArma => unArma.poderPara(this) })
 		}
 
 		override method atacarA(otro) {
 			super(otro) 
 			if (this.potencialOfensivo() < otro.potencialOfensivo()) 
 				this.perderArmaDeMasPoder() 
-			armas.forEach([	unArma | unArma.atacaste() ])
+			armas.forEach({	unArma => unArma.atacaste() })
 		}
 
 		method perderArmaDeMasPoder() {
-			var armaAPerder = armas.max([ unArma | unArma.poderPara(this)]) 
+			var armaAPerder = armas.max({ unArma => unArma.poderPara(this)}) 
 			armas.remove(armaAPerder)
 		}
 	}
 	class Espada {
 		var poder
-		new(unPoder) { poder = unPoder }
+		
+		constructor(unPoder) { poder = unPoder }
 		method poderPara(_) { return poder }
 	}
 	class Equipo {
 		var integrantes = #{}
-		new(_integrantes){ integrantes = _integrantes}
+		
+		constructor(_integrantes){ integrantes = _integrantes}
 		method integrantes () { return integrantes }
 		method cantidadDeIntegrantesEnPie() {
 			return this.integrantesEnPie().size()
 		}
 		method integrantesEnPie(){  
-			return integrantes.filter([unPersonaje | unPersonaje.estaEnPie()])
+			return integrantes.filter({unPersonaje => unPersonaje.estaEnPie()})
 		}
 		method atacarA(otro){
 			var atacantes = this.integrantesEnPie()
+			
 			if(atacantes.isEmpty())
 				throw new NoSePuedeAtacarException("No hay atacantes")
-			this.integrantesEnPie().forEach([unIntegrante | unIntegrante.atacarA(otro)])	
+			this.integrantesEnPie().forEach({unIntegrante => unIntegrante.atacarA(otro)})	
 		}
 		method recibirAtaqueDe(potencia){
 			this.integranteMasDebil().recibirAtaqueDe(potencia)
 		}
 		method integranteMasDebil(){
-			return this.integrantesEnPie().min([unIntegrante | unIntegrante.potencialOfensivo()])
+			return this.integrantesEnPie().min({unIntegrante => unIntegrante.potencialOfensivo()})
 		}
 	}
 	class NoSePuedeAtacarException inherits Exception {
-		new(_text){ 
+		constructor(_text){ 
 			this.text(_text)
 		}
 	}

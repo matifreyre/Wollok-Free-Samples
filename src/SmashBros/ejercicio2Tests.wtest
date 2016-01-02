@@ -5,4 +5,4 @@ test "Zelda tiene power inicial, pero recula después" {
 	assert.equals(250, zelda.potencialOfensivo()) 
 	zelda.atacarA(captainFalcon)
 	assert.equals(145, zelda.potencialOfensivo())
-}
+} 

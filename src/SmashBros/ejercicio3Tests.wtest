@@ -1,7 +1,7 @@
 import ejercicio1.SmashBros.*
 import ejercicio2.SmashBros.*
 import ejercicio3.SmashBros.*
-
+ 
 test "Probar distintas espadas, que otorgan distintos potenciales ofensivos para Link" {
 	var espada = new Espada(50)
 	link.setArma(espada)

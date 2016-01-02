@@ -1,5 +1,5 @@
 import ejercicio4.SmashBros.*
-
+ 
 test "Ej. 1: Poder de Captain Falcon" {
 	assert.equals(captainFalcon.potencialOfensivo(), 9999)
 }

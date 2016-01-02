@@ -8,7 +8,7 @@ test "Ej. 1: Poder de Jigglypuff" {
 	assert.equals(250, jigglypuff.potencialOfensivo())
 	jigglypuff.atacarA(captainFalcon)
 	assert.equals(125, jigglypuff.potencialOfensivo())
-}
+} 
 
 test "Ej. 1: Poder de Link con espada (suma 100)" {
 	link.arma(espadaMaestra) 
