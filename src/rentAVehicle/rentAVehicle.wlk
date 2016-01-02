@@ -9,26 +9,26 @@ class Vehicle {
 	}
 }
  
-class Bicicleta inherits Vehicle {
-	var rodado
+class Bike inherits Vehicle {
+	var wheelSize
 
-	constructor(_rodado) {
-		rodado = _rodado
+	constructor(_wheelSize) {
+		wheelSize = _wheelSize
 	}
-	override method maxSpeed() { return rodado * 1.2 }
+	override method maxSpeed() { return wheelSize * 1.2 }
 	override method expenseFor100Km() { return 1 }
 	override method numberOfPassengers() { return 1 }
 }
 
 class Moto inherits Vehicle {
-	var cilindrada
+	var cylindersVolume
 
-	constructor(_cilindrada) {
-		cilindrada = _cilindrada
+	constructor(_cylindersVolume) {
+		cylindersVolume = _cylindersVolume
 	}
-	override method maxSpeed() { return cilindrada / 5 }
-	override method expenseFor100Km() { return 5 + cilindrada / 200 }
-	override method numberOfPassengers() { return if (cilindrada < 150) 1 else 2 }
+	override method maxSpeed() { return cylindersVolume / 5 }
+	override method expenseFor100Km() { return 5 + cylindersVolume / 200 }
+	override method numberOfPassengers() { return if (cylindersVolume < 150) 1 else 2 }
 }
 
 class Car inherits Vehicle {
@@ -44,20 +44,20 @@ class Car inherits Vehicle {
 	override method numberOfPassengers() { return numberOfPassengers }
 }
  
-object empresa {
+object company {
 	var vehicles = #{}
 	
-	method vehiclesConVelocidadMayorA(aSpeed) {
+	method vehiclesFasterThan(aSpeed) {
 		return vehicles.filter({vehicle => vehicle.maxSpeed() > aSpeed})
 	}
-	method vehiclesQueConsumenMenosQue(anExpense) {
+	method vehiclesThatConsumeLessThan(anExpense) {
 		return vehicles.filter({vehicle => vehicle.expenseFor100Km() < anExpense})
 	}
-	method vehicleMasEficiente() {
+	method mostEfficientVehicle() {
 		return vehicles.max({vehicle => vehicle.efficiency()})
 	}
 	method numberOfPassengersQuePuedenTransportarseAMasDe(aSpeed){
-		return this.vehiclesConVelocidadMayorA(aSpeed).
+		return this.vehiclesFasterThan(aSpeed).
 			map({vehicle => vehicle.numberOfPassengers()})
 	}
 }

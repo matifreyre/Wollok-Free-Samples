@@ -9,5 +9,5 @@ test "Moto efficiency" {
 }
 
 test "Bike efficiency" {
-	assert.equals(24, new Bicicleta(20).efficiency())
+	assert.equals(24, new Bike(20).efficiency())
 }
