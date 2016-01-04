@@ -16,7 +16,7 @@ test "Ej. 1: Poder de Link con espada (suma 100)" {
 	link.atacarA(captainFalcon) 
 	assert.equals(200, link.potencialOfensivo())
 }
-
+ 
 test "Ej. 1: Poder de Link con boomerang (duplica su base)" {
 	link.arma(boomerang) 
 	assert.equals(link.potencialOfensivo(), link.poderBase() * 2)

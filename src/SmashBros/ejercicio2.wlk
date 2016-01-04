@@ -10,18 +10,18 @@ package SmashBros {
 		method recibirAtaqueDe(potencia) { }
 		
 		method potencialOfensivo() {
-			return this.poderBase() + armas.sum({ unArma => unArma.poderPara(this) })
+			return this.poderBase() + armas.sum([ unArma | unArma.poderPara(this) ])
 		}
 		
 		method atacarA(otro) {
 			otro.recibirAtaqueDe(this.potencialOfensivo()) 
 			if (this.potencialOfensivo() < otro.potencialOfensivo()) 
 				this.perderArmaDeMasPoder() 
-				armas.forEach({ unArma => unArma.atacaste() })
+				armas.forEach([ unArma | unArma.atacaste() ])
 		}
 		
 		method perderArmaDeMasPoder() {
-			var armaAPerder = armas.max({ unArma => unArma.poderPara(this)}) 
+			var armaAPerder = armas.max([ unArma | unArma.poderPara(this)]) 
 			armas.remove(armaAPerder)
 		}
 	}

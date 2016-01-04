@@ -63,25 +63,25 @@ package SmashBros {
 		}
 		
 		method poderDeArmas(){
-			return armas.sum({ unArma => unArma.poderPara(this) })
+			return armas.sum([ unArma | unArma.poderPara(this) ])
 		}
 
 		override method atacarA(otro) {
 			super(otro) 
 			if (this.potencialOfensivo() < otro.potencialOfensivo()) 
 				this.perderArmaDeMasPoder() 
-			armas.forEach({	unArma => unArma.atacaste() })
+			armas.forEach([	unArma | unArma.atacaste() ])
 		}
 
 		method perderArmaDeMasPoder() {
-			var armaAPerder = armas.max({ unArma => unArma.poderPara(this)}) 
+			var armaAPerder = armas.max([ unArma | unArma.poderPara(this)]) 
 			armas.remove(armaAPerder)
 		}
 	}
 	class Espada {
 		var poder
 		
-		constructor(unPoder) { poder = unPoder }
+		new(unPoder) { poder = unPoder }
 		method poderPara(_) { return poder }
 	}
 }
