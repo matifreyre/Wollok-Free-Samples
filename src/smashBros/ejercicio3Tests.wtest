@@ -9,4 +9,4 @@ test "Probar distintas espadas, que otorgan distintos potenciales ofensivos para
 	espada = new Espada(400)
 	link.setArma(espada)
 	assert.equals(500, link.potencialOfensivo())
-} 
+}  

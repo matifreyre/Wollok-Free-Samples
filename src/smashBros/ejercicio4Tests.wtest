@@ -20,7 +20,7 @@ test "Ej. 1: Poder de Link con espada (suma 100)" {
 test "Ej. 1: Poder de Link con boomerang (duplica su base)" {
 	link.arma(boomerang) 
 	assert.equals(link.potencialOfensivo(), link.poderBase() * 2)
-}
+} 
 
 test "Ej. 1: Poder de Link con arco y flecha (pierde 5 con cada ataque)" {
 	link.arma(arcoYFlecha) 
