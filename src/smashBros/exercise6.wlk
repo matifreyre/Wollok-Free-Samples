@@ -7,43 +7,48 @@ package SmashBros {
 		method isKO(){ return damage > character.maxDamage()}
 		method isStanding(){ return !this.isKO() }
 		method offensivePower()
-		method attack(another) {
-			another.receiveAttackOf(this.offensivePower())
+		method attack(target) {
+			target.receiveAttackOf(this.offensivePower())
 		}
 	} 
+	
 	object character {
 		var maxDamage = 200
 		method maxDamage() {return maxDamage}
 		method maxDamage(_maxDamage) {maxDamage = _maxDamage}
 	}
+	
 	object captainFalcon inherits Character {
 		override method offensivePower() {
 			return 9999
 		}
 	} 
+	
 	object jigglypuff inherits Character {
 		var offensivePower = 250
 		override method offensivePower() {
 			return offensivePower
 		}
-		override method attack(another) {
-			another.receiveAttackOf(this.offensivePower()) offensivePower =
+		override method attack(target) {
+			target.receiveAttackOf(this.offensivePower()) offensivePower =
 			offensivePower / 2
 		}
 	}
+	
 	object link inherits Character {
 		var basePower = 100
 		var weapon
 		override method offensivePower() {
 			return basePower + weapon.powerFor(this)
 		}
-		override method attack(another) {
-			super(another) 
+		override method attack(target) {
+			super(target) 
 			weapon.hasAttacked()
 		}
 		method basePower() { return basePower }
 		method weapon(_weapon) { weapon = _weapon }
 	}
+	
 	object masterSword {
 		method powerFor(_) { return 100 }
 		method hasAttacked() { }
@@ -59,6 +64,7 @@ package SmashBros {
 		method powerFor(_) { return numberOfArrows * 5 }
 		method hasAttacked() { numberOfArrows -= 1 }
 	}
+	
 	object zelda inherits Character {
 		var weapons = #{ masterSword , boomerang , bowAndArrow } 
 		var basePower = 50
@@ -73,13 +79,13 @@ package SmashBros {
 			return weapons.sum({ aWeapon => aWeapon.powerFor(this) })
 		}
 
-		override method attack(another) {
-			if (this.offensivePower() < another.offensivePower()){
-				super(another)
+		override method attack(target) {
+			if (this.offensivePower() < target.offensivePower()){
+				super(target)
 				this.loseMostPowerfulWeapon() 
 			} else
-				super(another)
-			weapons.forEach({	aWeapon => aWeapon.hasAttacked() })
+				super(target)
+			weapons.forEach({ aWeapon => aWeapon.hasAttacked() })
 		}
 
 		method loseMostPowerfulWeapon() {
@@ -87,12 +93,14 @@ package SmashBros {
 			weapons.remove(weaponToLose)
 		}
 	}
+	
 	class Espada {
 		var power
 		
 		constructor(aPower) { power = aPower }
 		method powerFor(_) { return power }
 	}
+	
 	class Equipo {
 		var members
 		
@@ -104,11 +112,11 @@ package SmashBros {
 		method standingMembers(){  
 			return members.filter({aCharacter => aCharacter.isStanding()})
 		}
-		method attack(another){
+		method attack(target){
 			var attackers = this.standingMembers()
 			if(attackers.isEmpty())
 				throw new CannotAttackException("No attackers available")
-			attackers.forEach({ aMember => aMember.attack(another) })
+			attackers.forEach({ aMember => aMember.attack(target) })
 		}
 		method receiveAttackOf(aPower){
 			this.weakestMember().receiveAttackOf(aPower)
@@ -120,6 +128,7 @@ package SmashBros {
 			return this.weakestMember().offensivePower()
 		}
 	}
+	
 	class CannotAttackException inherits Exception {
 		constructor(_text){ 
 			this.text(_text)
