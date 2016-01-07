@@ -60,9 +60,9 @@ test "Ej. 4: Jigglypuff queda fuera de combate" {
 	assert.that(jigglypuff.estaFueraDeCombate()) 
 }
 
-test "Ej. 5: El danio máximo se aumenta a 20000 y jigglypuff NO está fuera de combate" {
+test "Ej. 5: El danio máximo se aumenta a 20000 y jigglypuff NO está fuera de combate hasta el tercer ataque" {
 	personaje.danioMaximo(20000)
-	assert.notThat(jigglypuff.estaFueraDeCombate())
+	captainFalcon.atacarA(jigglypuff)
 	captainFalcon.atacarA(jigglypuff)
 	assert.notThat(jigglypuff.estaFueraDeCombate())	
 	captainFalcon.atacarA(jigglypuff)
@@ -77,7 +77,7 @@ test "Ej. 6: Personajes en pié de un equipo" {
 	assert.equals(1, equipo.cantidadDeIntegrantesEnPie())
 }
 
-test "Ej. 6: Un equipo ataca a otro" { 
+test "Ej. 6: Un equipo ataca a otro" {
 	var atacante = new Equipo(#{link, zelda})
 	var atacado = new Equipo(#{captainFalcon, jigglypuff}) /* jigglypuff es el más débil */
 	personaje.danioMaximo(200)

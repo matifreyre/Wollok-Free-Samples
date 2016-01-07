@@ -75,8 +75,11 @@ package SmashBros {
 
 		override method atacarA(otro) {
 			super(otro) 
-			if (this.potencialOfensivo() < otro.potencialOfensivo()) 
+			if (this.potencialOfensivo() < otro.potencialOfensivo()){
+				super(otro)
 				this.perderArmaDeMasPoder() 
+			} else
+				super(otro)
 			armas.forEach({	unArma => unArma.atacaste() })
 		}
 
@@ -114,6 +117,9 @@ package SmashBros {
 		}
 		method integranteMasDebil(){
 			return this.integrantesEnPie().min({unIntegrante => unIntegrante.potencialOfensivo()})
+		}
+		method potencialOfensivo(){
+			return this.integranteMasDebil().potencialOfensivo()
 		}
 	}
 	class NoSePuedeAtacarException inherits Exception {
