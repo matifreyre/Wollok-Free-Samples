@@ -1,0 +1,86 @@
+import exercise6.SmashBros.*
+
+test "1: Captain Falcon's power" {
+	assert.equals(captainFalcon.offensivePower(), 9999)
+}
+
+test "1: Jigglypuff's power" {
+	assert.equals(250, jigglypuff.offensivePower())
+	jigglypuff.attack(captainFalcon)
+	assert.equals(125, jigglypuff.offensivePower())
+} 
+
+test "1: Link's power with master sword (adds 100)" {
+	link.weapon(masterSword) 
+	assert.equals(200, link.offensivePower())
+	link.attack(captainFalcon) 
+	assert.equals(200, link.offensivePower())
+}
+
+test "1: Link's power (doubles its base)" {
+	link.weapon(boomerang) 
+	assert.equals(link.offensivePower(), link.basePower() * 2)
+}
+
+test "1: Link's power with bow and arrow (loses 5 after each attack)" {
+	link.weapon(bowAndArrow) 
+	assert.equals(150, link.offensivePower())
+	link.attack(captainFalcon) 
+	assert.equals(145, link.offensivePower())
+	link.attack(captainFalcon) 
+	assert.equals(140, link.offensivePower())
+}
+
+test "2: Zelda's power is lower after attacking a stronger opponent" {
+	assert.equals(250, zelda.offensivePower()) 
+	zelda.attack(captainFalcon)
+	/* Pierde 5 puntos por gastar una flecha, y también 100 de la espada que pierde, 
+	 * por ser su weapon más potente y estar atacando a uno más groso
+	 */
+	assert.equals(145, zelda.offensivePower())  
+}
+ 
+test "3: Different swords give Link a different power" {
+	var espada = new Espada(50)
+	link.weapon(espada)
+	assert.equals(150, link.offensivePower())
+	espada = new Espada(400)
+	link.weapon(espada)
+	assert.equals(500, link.offensivePower())
+}
+
+test "4: Jigglypuff is KO" {
+	link.weapon(masterSword)
+	assert.equals(0, jigglypuff.damage())
+	link.attack(jigglypuff) /* 200, todavía en combate */
+	assert.equals(200, jigglypuff.damage())
+	assert.notThat(jigglypuff.isKO()) 
+	link.attack(jigglypuff) /* Otros 200, queda fuera de combate */
+	assert.equals(400, jigglypuff.damage())
+	assert.that(jigglypuff.isKO()) 
+}
+
+test "5: Max damage is set to 20000 so Jigglypuff is NOT KO after 2 attacks from Captain Falcon" {
+	character.maxDamage(20000)
+	captainFalcon.attack(jigglypuff)
+	captainFalcon.attack(jigglypuff)
+	assert.notThat(jigglypuff.isKO())	
+}
+
+test "6: Standing team members" {
+	var equipo = new Equipo(#{link, zelda})
+	character.maxDamage(200)
+	assert.equals(2, equipo.numberOfStandingMembers())
+	captainFalcon.attack(link)
+	assert.equals(1, equipo.numberOfStandingMembers())
+}
+
+test "6: One team attacks another team, the weakest member receives the attack" {
+	var attacker = new Equipo(#{link, zelda})
+	var attacked = new Equipo(#{captainFalcon, jigglypuff}) /* jigglypuff es el más débil */
+	character.maxDamage(200)
+	link.weapon(masterSword)
+	assert.notThat(jigglypuff.isKO())
+	attacker.attack(attacked)
+	assert.that(jigglypuff.isKO())
+}
