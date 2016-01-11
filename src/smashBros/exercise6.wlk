@@ -1,11 +1,11 @@
 package SmashBros {
 	class Character {
 		var damage = 0
-		method damage(){ return damage }
+		method damage() = damage 
 		method damage(_damage){ damage = _damage}
 		method receiveAttackOf(power) { damage += power }
-		method isKO(){ return damage > character.maxDamage()}
-		method isStanding(){ return !this.isKO() }
+		method isKO() = damage > character.maxDamage()
+		method isStanding() = !this.isKO()
 		method offensivePower()
 		method attack(target) {
 			target.receiveAttackOf(this.offensivePower())
@@ -14,24 +14,22 @@ package SmashBros {
 	
 	object character {
 		var maxDamage = 200
-		method maxDamage() {return maxDamage}
+		method maxDamage() = maxDamage
 		method maxDamage(_maxDamage) {maxDamage = _maxDamage}
 	}
 	
 	object captainFalcon inherits Character {
-		override method offensivePower() {
-			return 9999
-		}
+		override method offensivePower() = 9999
 	} 
 	
 	object jigglypuff inherits Character {
 		var offensivePower = 250
-		override method offensivePower() {
-			return offensivePower
-		}
+		
+		override method offensivePower() = offensivePower
+	
 		override method attack(target) {
-			target.receiveAttackOf(this.offensivePower()) offensivePower =
-			offensivePower / 2
+			target.receiveAttackOf(this.offensivePower()) 
+			offensivePower = offensivePower / 2
 		}
 	}
 	
@@ -45,23 +43,23 @@ package SmashBros {
 			super(target) 
 			weapon.hasAttacked()
 		}
-		method basePower() { return basePower }
+		method basePower() = basePower
 		method weapon(_weapon) { weapon = _weapon }
 	}
 	
 	object masterSword {
-		method powerFor(_) { return 100 }
+		method powerFor(_) = 100
 		method hasAttacked() { }
 	}
 
 	object boomerang {
-		method powerFor(carrier) { return carrier.basePower() }
+		method powerFor(carrier) = carrier.basePower() 
 		method hasAttacked() { }
 	}
 
 	object bowAndArrow {
 		var numberOfArrows = 10
-		method powerFor(_) { return numberOfArrows * 5 }
+		method powerFor(_) = numberOfArrows * 5 
 		method hasAttacked() { numberOfArrows -= 1 }
 	}
 	
@@ -69,15 +67,13 @@ package SmashBros {
 		var weapons = #{ masterSword , boomerang , bowAndArrow } 
 		var basePower = 50
 
-		method basePower() { return basePower }
+		method basePower() = basePower 
 
-		override method offensivePower() { 
-			return this.basePower() + this.weaponsPower()
-		}
+		override method offensivePower() =
+			this.basePower() + this.weaponsPower()
 		
-		method weaponsPower(){
-			return weapons.sum({ aWeapon => aWeapon.powerFor(this) })
-		}
+		method weaponsPower() = 
+			weapons.sum({ aWeapon => aWeapon.powerFor(this) })
 
 		override method attack(target) {
 			if (this.offensivePower() < target.offensivePower()){
@@ -98,20 +94,20 @@ package SmashBros {
 		var power
 		
 		constructor(aPower) { power = aPower }
-		method powerFor(_) { return power }
+		method powerFor(_) = power
 	}
 	
 	class Equipo {
 		var members
 		
 		constructor(_members){ members = _members}
-		method members () = members
-		method numberOfStandingMembers() {
-			return this.standingMembers().size()
-		}
-		method standingMembers(){  
-			return members.filter({aCharacter => aCharacter.isStanding()})
-		}
+		method members() = members
+		method numberOfStandingMembers() = 
+			this.standingMembers().size()
+			
+		method standingMembers() = 
+			members.filter({aCharacter => aCharacter.isStanding()})
+			
 		method attack(target){
 			var attackers = this.standingMembers()
 			if(attackers.isEmpty())
@@ -121,12 +117,11 @@ package SmashBros {
 		method receiveAttackOf(aPower){
 			this.weakestMember().receiveAttackOf(aPower)
 		}
-		method weakestMember(){
-			return this.standingMembers().min({aMember => aMember.offensivePower()})
-		}
-		method offensivePower(){
-			return this.weakestMember().offensivePower()
-		}
+		method weakestMember() = 
+			this.standingMembers().min({aMember => aMember.offensivePower()})
+			
+		method offensivePower() = 
+			this.weakestMember().offensivePower()
 	}
 	
 	class CannotAttackException inherits Exception {
