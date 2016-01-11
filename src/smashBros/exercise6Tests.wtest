@@ -8,7 +8,7 @@ test "1: Jigglypuff's power" {
 	assert.equals(250, jigglypuff.offensivePower())
 	jigglypuff.attack(captainFalcon)
 	assert.equals(125, jigglypuff.offensivePower())
-} 
+}
 
 test "1: Link's power with master sword (adds 100)" {
 	link.weapon(masterSword) 
@@ -35,8 +35,8 @@ test "2: Zelda's power is lower after attacking a stronger opponent" {
 	assert.equals(250, zelda.offensivePower()) 
 	zelda.attack(captainFalcon)
 	/* Loses 5 points for using an arrow, and also 100 for the sword he loses, 
-	 * because of being his most powerful weapon and being attacking a stronger 
-	 * opponent.
+	 * because of it being his most powerful weapon and him being attacking a 
+	 * stronger opponent.
 	 */
 	assert.equals(145, zelda.offensivePower())  
 }
@@ -81,7 +81,7 @@ test "6: One team attacks another team, the weakest member receives the attack" 
 	var attacked = new Equipo(#{captainFalcon, jigglypuff})
 	character.maxDamage(200)
 	link.weapon(masterSword)
-	/* jigglypuff is the weakest in the attacked team and should get KO */
+	/* Jigglypuff is the weakest in the attacked team and should get KO */
 	assert.notThat(jigglypuff.isKO())
 	attacker.attack(attacked)
 	assert.that(jigglypuff.isKO())

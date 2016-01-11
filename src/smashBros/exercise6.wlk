@@ -26,7 +26,6 @@ package SmashBros {
 		var offensivePower = 250
 		
 		override method offensivePower() = offensivePower
-	
 		override method attack(target) {
 			target.receiveAttackOf(this.offensivePower()) 
 			offensivePower = offensivePower / 2
@@ -68,13 +67,10 @@ package SmashBros {
 		var basePower = 50
 
 		method basePower() = basePower 
-
 		override method offensivePower() =
 			this.basePower() + this.weaponsPower()
-		
 		method weaponsPower() = 
 			weapons.sum({ aWeapon => aWeapon.powerFor(this) })
-
 		override method attack(target) {
 			if (this.offensivePower() < target.offensivePower()){
 				super(target)
@@ -83,7 +79,6 @@ package SmashBros {
 				super(target)
 			weapons.forEach({ aWeapon => aWeapon.hasAttacked() })
 		}
-
 		method loseMostPowerfulWeapon() {
 			var weaponToLose = weapons.max({ aWeapon => aWeapon.powerFor(this)}) 
 			weapons.remove(weaponToLose)
@@ -104,10 +99,8 @@ package SmashBros {
 		method members() = members
 		method numberOfStandingMembers() = 
 			this.standingMembers().size()
-			
 		method standingMembers() = 
 			members.filter({aCharacter => aCharacter.isStanding()})
-			
 		method attack(target){
 			var attackers = this.standingMembers()
 			if(attackers.isEmpty())
