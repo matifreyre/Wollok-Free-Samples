@@ -37,3 +37,10 @@ test "An obsequious person always wants the same as his/her boss" {
 	assert.that(boss.wantsToHopOnTo(bus)) /* Both want */
 	assert.that(obsequious.wantsToHopOnTo(bus)) /* Both want */
 }
+
+test "The lazy person wants to hop on if there are seats available" {
+	assert.that(new Lazy().wantsToHopOnTo(bus))  /* Seats available */
+	35.times({bus.hopOn(new Hurried())})
+	console.println(bus.numberOfPeopleOnBoard())
+	assert.that(!new Lazy().wantsToHopOnTo(bus)) /* No more seats available */
+}
