@@ -4,8 +4,8 @@ class Vehicle {
 	method maxSpeed()
 	method expenseFor100Km()
 	method efficiency(){
-		return this.numberOfPassengers() * this.maxSpeed() / 
-			this.expenseFor100Km()
+		return self.numberOfPassengers() * self.maxSpeed() / 
+			self.expenseFor100Km()
 	}
 }
  
@@ -57,7 +57,7 @@ object company {
 		return vehicles.max({vehicle => vehicle.efficiency()})
 	}
 	method numberOfPassengersQuePuedenTransportarseAMasDe(aSpeed){
-		return this.vehiclesFasterThan(aSpeed).
+		return self.vehiclesFasterThan(aSpeed).
 			map({vehicle => vehicle.numberOfPassengers()})
 	}
 }

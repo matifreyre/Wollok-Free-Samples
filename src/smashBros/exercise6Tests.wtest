@@ -42,10 +42,10 @@ test "2: Zelda's power is lower after attacking a stronger opponent" {
 }
  
 test "3: Different swords give Link a different power" {
-	var espada = new Espada(50)
+	var espada = new Sword(50)
 	link.weapon(espada)
 	assert.equals(150, link.offensivePower())
-	espada = new Espada(400)
+	espada = new Sword(400)
 	link.weapon(espada)
 	assert.equals(500, link.offensivePower())
 }
@@ -58,7 +58,8 @@ test "4: Jigglypuff is KO" {
 	assert.notThat(jigglypuff.isKO()) 
 	link.attack(jigglypuff) /* Another 200, KO */
 	assert.equals(400, jigglypuff.damage())
-	assert.that(jigglypuff.isKO()) 
+	assert.that(jigglypuff.isKO()) // <-- green test
+	//assert.that(!jigglypuff.isKO()) // <-- red test 
 }
 
 test "5: Max damage is set to 20000 so Jigglypuff is NOT KO after 2 attacks from Captain Falcon" {

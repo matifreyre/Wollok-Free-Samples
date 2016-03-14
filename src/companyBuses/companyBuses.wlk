@@ -10,7 +10,7 @@ object bus {
 
 	/** True when the bus has a greater capacity than the given parameter */
 	method hasAGreaterCapacityThan(aCapacity) {
-		return this.volume() > aCapacity
+		return self.volume() > aCapacity
 	}
 }
 
@@ -44,6 +44,6 @@ class Claustrophobic inherits Person {
 
 class Obsequious inherits Person {
 	override method wantsToHopOnTo(aBus) {
-		return this.boss().wantsToHopOnTo(aBus)
+		return self.boss().wantsToHopOnTo(aBus)
 	}
 }
